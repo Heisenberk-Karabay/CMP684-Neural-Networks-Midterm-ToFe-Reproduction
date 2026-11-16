@@ -1,0 +1,11 @@
+# Python 3.13. Install PyTorch with CUDA 12.8 first:
+#   pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+timm==1.0.30
+numpy==2.5.2
+pillow==12.3.0
+matplotlib==3.11.2
+pyarrow==26.0.0
+fvcore==0.1.5.post20221221
+pypdf==6.21.2
+pygments==2.21.0
+pypdfium2==5.14.0

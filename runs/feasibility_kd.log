@@ -1,0 +1,26 @@
+== T1: FLOPs (GMACs) ==
+dense DeiT-S  Eq.(4): 4.599  fvcore: 4.608  (paper: 4.6)
+ToFe keep=[96, 49, 27]: 2.197  (paper Table VII: 2.3)
+EViT  keep=[96, 49, 27]: 2.297
+params: backbone 22.05M, ToFe modules +0.292M
+
+== T2: correctness (keep all tokens == dense) ==
+max |dense - infer(all)| = 8.94e-07
+max |dense - train(all)| = 1.79e-06, kept=[196, 196, 196]
+
+== T3: dense DeiT-S accuracy (1000-way top-1/top-5) ==
+imagenette n=3925: top1 87.16  top5 98.42  (18.5s)
+imagewoof  n=3929: top1 86.46  top5 97.79  (18.5s)
+
+== T4: throughput, bs=128, bf16 (img/s) ==
+dense 3528 | ToFe 6385 (+81.0%) | EViT 6086 (+72.5%)   [paper DeiT-S: 2383.9 -> 5477.3]
+
+== T5: mini training, frozen backbone, target = 50% FLOPs ==
+ep0: loss 4.037 (cls 0.260 apr 1.7643 flops 0.0496) keep [129.9, 71.3, 24.0] -> 2.50 GMACs | 49s, 374 img/s, peak mem 3.2 GB
+ep1: loss 3.905 (cls 0.398 apr 1.6072 flops 0.0584) keep [89.5, 125.2, 14.6] -> 2.52 GMACs | 32s, 583 img/s, peak mem 3.2 GB
+ep2: loss 3.806 (cls 0.261 apr 1.6351 flops 0.0551) keep [86.3, 129.3, 13.8] -> 2.52 GMACs | 32s, 583 img/s, peak mem 3.2 GB
+
+learned N^s = [86, 129, 14] (ratios [0.44, 0.66, 0.07]) -> 2.52 GMACs; paper N^s = [96, 49, 27]: ToFe 2.20 vs EViT 2.30 GMACs
+imagenette ToFe(learned N^s) 83.72/97.45 | ToFe(paper N^s) 77.43/93.61 | EViT(fuse) 79.62/96.15 | top-k CLS-attn prune 79.57/96.15
+imagewoof  ToFe(learned N^s) 84.32/96.64 | ToFe(paper N^s) 73.17/92.98 | EViT(fuse) 81.29/96.36 | top-k CLS-attn prune 81.17/96.26
+instance-adaptive (imagewoof, 500 imgs): top1 83.6 | GMACs mean 2.50 (min 2.31, max 2.66) | tokens/stage mean [75.4739990234375, 137.85800170898438, 11.40999984741211] std [12.76523494720459, 12.385825157165527, 4.1294074058532715]

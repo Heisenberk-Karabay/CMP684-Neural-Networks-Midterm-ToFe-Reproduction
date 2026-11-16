@@ -1,0 +1,9 @@
+{"name": "tofe_b50_ft3", "budget": 0.5, "epochs": 3, "bs": 128, "lr": 0.0001, "backbone_lr": 5e-05, "finetune_epochs": 3, "wd": 0.05, "no_reuse": false, "approx": "mlp", "selector": "mlp", "selector_depth": 3, "fixed_keep": null, "init": "tofe_b50", "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 0}
+initialised from tofe_b50
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 2.299 GMACs, extra params 0.439M
+backbone unfrozen
+ep0: cls 0.795 apr 1.7411 flops 0.0024 | train GMACs 2.323 | keep [83.8, 95.3, 12.2] | 322s, 405 img/s
+ep1: cls 0.680 apr 1.6687 flops 0.0021 | train GMACs 2.324 | keep [72.0, 108.1, 11.1] | 288s, 454 img/s
+ep2: cls 0.604 apr 1.6271 flops 0.0021 | train GMACs 2.325 | keep [67.1, 113.7, 10.6] | 288s, 454 img/s
+{"name": "tofe_b50_ft3", "keep_counts": [67, 114, 11], "keep_ratios": [0.342, 0.582, 0.056], "gmacs": 2.328278784, "dense_gmacs": 4.598882304, "top1": 71.284, "top5": 90.098, "throughput": 6257.535319144912, "extra_params_M": 0.439302, "train_time_min": 14.960439932346343}

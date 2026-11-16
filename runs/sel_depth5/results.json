@@ -1,0 +1,20 @@
+{
+ "name": "sel_depth5",
+ "keep_counts": [
+  99,
+  76,
+  14
+ ],
+ "keep_ratios": [
+  0.505,
+  0.388,
+  0.071
+ ],
+ "gmacs": 2.319839232,
+ "dense_gmacs": 4.598882304,
+ "top1": 70.354,
+ "top5": 89.358,
+ "throughput": 5939.129490653633,
+ "extra_params_M": 0.495174,
+ "train_time_min": 20.097487485408784
+}

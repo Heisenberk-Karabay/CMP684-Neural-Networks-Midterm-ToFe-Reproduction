@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A Reproduction Study of ToFe, H. B. Karabay</title>
+<style>
+@page { size: A4; margin: 19mm 15mm 22mm 15mm;
+  @bottom-center { content: counter(page); font: 9pt "Times New Roman", serif; } }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font: 10pt/11.6pt "Times New Roman", Times, serif; color: #000; margin: 0; counter-reset: sec fig tab eq; }
+p { margin: 0; text-indent: 1em; text-align: justify; hyphens: auto; }
+.noindent { text-indent: 0; }
+
+/* title block (full width) */
+.top { text-align: center; margin-bottom: 12pt; }
+.top h1 { font-size: 23pt; line-height: 27pt; font-weight: normal; margin: 0 0 11pt; }
+.top .name { font-size: 11pt; margin-bottom: 2pt; }
+.top .aff { font-size: 9.5pt; font-style: italic; line-height: 11pt; }
+.top .mail { font-size: 9pt; margin-top: 1pt; }
+.top .course { font-size: 8.5pt; margin-top: 5pt; color: #333; }
+
+main { column-count: 2; column-gap: 4.5mm; }
+.abstract, .keywords { font-size: 9pt; line-height: 10.5pt; font-weight: bold; text-align: justify; hyphens: auto; }
+.abstract { margin-bottom: 6pt; }
+.keywords { margin-bottom: 8pt; }
+.abstract i, .keywords i { font-weight: bold; }
+
+h2 { counter-increment: sec; counter-reset: sub; font-size: 10pt; font-weight: normal; font-variant: small-caps;
+     text-align: center; margin: 9pt 0 4pt; break-after: avoid; }
+h2::before { content: counter(sec, upper-roman) ". "; }
+h2.nonum { counter-increment: none; } h2.nonum::before { content: none; }
+h3 { counter-increment: sub; font-size: 10pt; font-weight: normal; font-style: italic; margin: 6pt 0 2pt; break-after: avoid; }
+h3::before { content: counter(sub, upper-alpha) ". "; font-style: italic; }
+ul { margin: 2pt 0 3pt; padding-left: 13pt; } li { text-align: justify; margin-bottom: 1pt; }
+
+.eq { display: flex; align-items: center; margin: 5pt 0; font-style: italic; }
+.eq span:first-child { flex: 1; text-align: center; }
+.eq span:last-child { font-style: normal; }
+
+figure { margin: 6pt 0 6pt; break-inside: avoid; }
+figure img { width: 100%; display: block; }
+figure.span { column-span: all; }
+figure.span img { width: 74%; margin: 0 auto; }
+figcaption { counter-increment: fig; font-size: 8pt; line-height: 9.5pt; text-align: justify; margin-top: 3pt; }
+figcaption::before { content: "Fig. " counter(fig) ". "; }
+
+.tbl { break-inside: avoid; margin: 7pt 0 7pt; }
+.tcap { counter-increment: tab; text-align: center; font-size: 8pt; line-height: 9.5pt; font-variant: small-caps; margin-bottom: 3pt; }
+.tcap::before { content: "TABLE " counter(tab, upper-roman); display: block; }
+table { width: 100%; border-collapse: collapse; font-size: 7.6pt; line-height: 9pt; }
+th { font-weight: normal; border-top: 1px solid #000; border-bottom: 0.6px solid #000; padding: 1.5pt 3pt; }
+td { padding: 1pt 3pt; vertical-align: top; }
+tbody tr:last-child td { border-bottom: 1px solid #000; }
+tr.sec td { font-style: italic; padding-top: 2.5pt; border-top: 0.4px solid #999; }
+.l { text-align: left; } .r { text-align: right; white-space: nowrap; } .c { text-align: center; }
+.tnote { font-size: 7.5pt; line-height: 9pt; margin-top: 2pt; text-align: justify; }
+
+.refs { font-size: 8pt; line-height: 9.6pt; padding-left: 0; list-style: none; counter-reset: ref; }
+.refs li { counter-increment: ref; position: relative; padding-left: 16pt; margin-bottom: 2pt; }
+.refs li::before { content: "[" counter(ref) "]"; position: absolute; left: 0; }
+.mono { font-family: Consolas, "Courier New", monospace; font-size: 8.4pt; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>A Reproduction Study of ToFe: Token Freezing and Reusing for Efficient Vision Transformers</h1>
+  <div class="name">Hasan Berk Karabay</div>
+  <div class="aff">Department of Computer Engineering, Hacettepe University, Ankara, Türkiye</div>
+  <div class="mail">Student ID: N25220154</div>
+  <div class="course">CMP684 Neural Networks, Midterm Reading Project</div>
+  <!--CODE_LINK-->
+</div>
+
+<main>
+<div class="abstract"><i>Abstract:</i> Vision transformers (ViTs) are accurate but slow, because every token is
+processed in every block. ToFe [1] is a recent method that makes ViTs faster by <i>freezing</i> unimportant tokens
+for a few blocks and <i>reusing</i> them later. A small network decides which tokens to keep, another small network
+updates the frozen tokens, and a FLOPs loss decides how many tokens each stage keeps. The authors report that ToFe
+halves the FLOPs of DeiT-S with only a 2.2-point drop in top-1 accuracy. The authors do not share their code, so I
+wrote ToFe from scratch and tested it on DeiT-S with the full ImageNet validation set. I trained on 10% of the
+ImageNet training set, which is about 59 times less training than in the paper. The baseline results match the
+paper well: DeiT-S gives 79.85% (paper: 79.9%) and ToMe gives 76.6% at 2.06 GMACs (paper: 76.5% at 2.0 G). However,
+ToFe itself reached only 69.7% at 50% of the FLOPs. This is lower than ToMe (78.1%) and EViT (74.1%), which need no
+training at all. Three ablation results of the paper came out reversed: token reusing lowered the accuracy by
+2.1 points, fixed keep ratios were better than the learned budget, and the DynamicViT selector was better than the
+proposed one. My analysis shows the main reason: frozen tokens change a lot in three blocks, and the small
+approximator cannot predict this change.</div>
+<div class="keywords"><i>Index Terms:</i> vision transformer, token reduction, efficient inference, reproducibility,
+DeiT, ImageNet.</div>
+
+<!-- ======================================================================= I -->
+<h2>Introduction</h2>
+<p>A vision transformer cuts an image into patches and treats each patch as a token. DeiT-S [2], for example,
+processes 196 patch tokens and one [CLS] token in each of its 12 blocks. The cost of a block grows with the number of
+tokens, so a common way to speed up a ViT is to use fewer tokens in the later blocks. Pruning methods such as EViT
+[3] and DynamicViT [5] drop the unimportant tokens, and merging methods such as ToMe [4] average similar tokens. In
+both cases the decision is final: a removed token never comes back.</p>
+<p>ToFe [1] argues that this is a mistake. Most methods use the attention of the [CLS] token to decide which tokens
+are important, but this attention is spread out and unreliable in the early blocks. A token that looks unimportant in
+block 4 can become important in block 10. ToFe therefore <i>freezes</i> such tokens instead of removing them: they
+skip some blocks, a small network updates them, and they can be used again in a later stage.</p>
+<p>This report makes four contributions:</p>
+<ul>
+  <li>A from-scratch PyTorch implementation of ToFe and of two baselines (EViT and ToMe), with unit tests.</li>
+  <li>A check of the four observations that motivate ToFe, on DeiT-S.</li>
+  <li>The main comparison and the ablations of Tables IV–VIII and X of [1], all on the full ImageNet validation
+  set.</li>
+  <li>An analysis of why my results differ from the paper.</li>
+</ul>
+
+<!-- ======================================================================= II -->
+<h2>ToFe in Short</h2>
+<h3>Cost model</h3>
+<p class="noindent">The paper counts the cost of one block that processes <i>n</i> tokens of width <i>D</i> as</p>
+<div class="eq"><span>FLOPs(<i>n</i>) = 4<i>nD</i><sup>2</sup> + 2<i>n</i><sup>2</sup><i>D</i> + 2<i>nD</i>·<i>D</i><sub>h</sub></span><span>(1)</span></div>
+<p class="noindent">where <i>D</i><sub>h</sub> = 4<i>D</i> is the MLP width. For DeiT-S (<i>D</i> = 384, 12 blocks,
+<i>n</i> = 197) this gives 4.6 G multiply–accumulate operations (GMACs), which papers usually call “4.6 GFLOPs”.</p>
+
+<h3>Freezing and reusing</h3>
+<p class="noindent">ToFe has three stages that start before blocks 4, 7 and 10. At the start of each stage:</p>
+<ul>
+  <li>A token selector, a 3-layer MLP, looks at every patch token and outputs keep/freeze scores. A
+  Gumbel-Softmax turns the scores into a binary mask.</li>
+  <li>The kept tokens and the [CLS] token go through the blocks of the stage.</li>
+  <li>The frozen tokens skip these blocks. A token approximator, a small 2-layer MLP, updates them as
+  <i>x</i> + <i>A</i>(<i>x</i>) to guess how they would have changed.</li>
+  <li>Both groups are put back in the original order. The selector of the next stage sees all tokens again, so a
+  frozen token can be reused.</li>
+</ul>
+
+<h3>Training and inference</h3>
+<p class="noindent">During training all tokens stay in the tensor, and an attention mask hides the frozen tokens from
+the others (Eqs. 16–18 of [1]). The loss is</p>
+<div class="eq"><span><i>L</i> = <i>λ</i><sub>cls</sub><i>L</i><sub>CE</sub> + <i>λ</i><sub>apr</sub><i>L</i><sub>apr</sub> + <i>λ</i><sub>FLOPs</sub><i>L</i><sub>FLOPs</sub></span><span>(2)</span></div>
+<p class="noindent">Here <i>L</i><sub>apr</sub> pulls the approximated tokens towards the outputs of the original
+model, and <i>L</i><sub>FLOPs</sub> is the squared difference between the cost of each image, from (1), and the
+target budget. The network therefore learns by itself how many tokens to keep in each stage. At test time there are
+two modes. In <i>batch-adaptive</i> mode, every image keeps the same number of tokens per stage: the average number
+seen during training. In <i>instance-adaptive</i> mode, every image decides its own number, which needs batch
+size 1.</p>
+
+<!-- ======================================================================= III -->
+<h2>Implementation</h2>
+<p class="noindent">I used Python 3.13, PyTorch 2.11 and the pretrained DeiT-S weights of timm 1.0.30. Everything
+else was written for this project. The code, all result files and the trained models are available online [9].
+The main file,
+<span class="mono">tofe.py</span>, has two forward passes. The training pass uses the masked attention of [1]. The
+inference pass really removes the frozen tokens from the computation, so it gives a real speed-up. I tested the code
+with four checks:</p>
+<ul>
+  <li>When all tokens are kept, both passes give the same output as DeiT-S (difference about 10<sup>−6</sup>).</li>
+  <li>For the same keep/freeze decisions, the two passes give the same output.</li>
+  <li>Without reuse, the tokens kept in a stage are a subset of those kept in the previous stage.</li>
+  <li>EViT and ToMe give the DeiT-S output when nothing is removed.</li>
+</ul>
+<p>The paper leaves some details open. Table I lists my choices. Two of them are worth explaining. First, I set the
+hidden size of the approximator to <i>D</i>/2 because this gives exactly the “2.52% of the FLOPs” reported in
+Table VI of [1]. Second, I set <i>λ</i><sub>FLOPs</sub> = 50 instead of 5: the paper does not give the unit of the
+FLOPs loss, and with 5 my models used 0.2 GMACs more than the budget. As baselines, I applied EViT and ToMe to the
+same frozen DeiT-S without any training. I also added random token pruning as a sanity check.</p>
+<div class="tbl"><div class="tcap">Details not given in [1] and my choices</div><!--TABLE:choices--></div>
+
+<!-- ======================================================================= IV -->
+<h2>Experimental Setup</h2>
+<p class="noindent"><i>Data:</i> I downloaded ImageNet-1k from Hugging Face. All results use the full validation
+set of 50,000 images. For training I used 30 of the 294 training files: 130,740 images, about 131 per class
+(10.2% of the training set).</p>
+<p><i>Training:</i> Each ToFe model is trained for 5 epochs with the backbone frozen. One run takes about 20 minutes
+on a single RTX 5070 GPU (12 GB). The paper trains for 30 epochs on the full training set and fine-tunes the backbone
+for 25 of them, which is 38.4 M training samples. My default runs see 0.65 M samples, 59 times fewer.
+Section V-D tests what more training changes.</p>
+<p><i>Metrics:</i> I report top-1 accuracy, cost in GMACs from (1), and throughput (images per second, batch 128,
+bf16). As a check, (1) gives 4.599 GMACs for DeiT-S and the fvcore operator counter gives 4.608.</p>
+<p><i>A lesson from the first test:</i> My first quick test trained ToFe on Imagenette and Imagewoof, two 10-class
+subsets of ImageNet. ToFe then beat the full DeiT-S model by 8 points (95.4% vs. 87.2%), which is impossible. The
+small networks had learned to push the 1000-class head towards the 20 training classes. For this reason all reported
+results use the 1000-class data.</p>
+
+<!-- ======================================================================= V -->
+<h2>Results</h2>
+<h3>The baselines match the paper</h3>
+<p class="noindent">DeiT-S reaches 79.85% top-1 and 95.06% top-5 accuracy (paper: 79.9% and 95.0%). ToMe with
+<i>r</i> = 18 reaches 76.63% at 2.06 GMACs, almost the same as the paper's ToMe result (76.5% at 2.0 G). So my data,
+model and cost counting agree with the paper.</p>
+
+<h3>The motivation of ToFe</h3>
+<p class="noindent">Table II checks the four observations that motivate ToFe, using 5,000 validation images.</p>
+<div class="tbl"><div class="tcap">The four motivating observations of [1], measured on DeiT-S</div><!--TABLE:motivation--></div>
+<p><i>The first three hold.</i> In the early blocks, the [CLS] attention is spread over many tokens: the top half of
+the tokens gets only 61–68% of it, compared with 88–94% in the last blocks (Fig. 1a). As a result, keeping the top
+50% at block 4 would remove 35% of the tokens that are most important at block 10 (Fig. 2). Neighbouring blocks also
+produce similar features (Fig. 3).</p>
+<p><i>The fourth one does not hold.</i> The paper says that unimportant (“inattentive”) tokens change little over
+several blocks, so a small network can approximate them. In my measurements they change as much as the important
+tokens (Fig. 1b). Over the three blocks of stage 1, their change is 1.32 times their own size, while their direction
+rotates (cosine 0.56) and their length grows by a factor of 1.55. A small MLP that sees one token at a time cannot
+predict such a change. Fig. 4 shows one more problem: in the deep blocks a few background tokens take 9–19% of the
+[CLS] attention. This “attention sink” effect [7] makes [CLS] attention an even worse importance score.</p>
+
+
+
+<h3>Main result at 50% of the FLOPs</h3>
+<p class="noindent">Table III and Fig. 5 show the main comparison. ToFe reaches 69.66% at 2.32 GMACs (two
+seeds: 69.63% and 69.69%). This is 10.2 points below DeiT-S, while the paper reports a drop of only 2.2 points. ToFe
+is also below ToMe (78.06%) and EViT (74.13%) at the same cost, although these two methods are not trained at all.
+It is only 1.5 points better than keeping random tokens (68.20%).</p>
+<div class="tbl"><div class="tcap">DeiT-S at about 50% of the FLOPs</div><!--TABLE:main-->
+<div class="tnote">Throughput is only comparable inside each block of rows (different GPUs).</div></div>
+<figure><img src="figs/motivation.svg"><figcaption>(a) Share of the [CLS] attention that goes to the top 50% of the
+tokens; 50% means uniform attention. (b) Relative change of a token in one block, for the half with the highest
+(attentive) and the lowest (inattentive) [CLS] attention.</figcaption></figure>
+<figure><img src="figs/masks.png"><figcaption>Copy of Fig. 3 of [1]: the top 50% of the tokens by [CLS] attention
+(others in black) at blocks 4, 7 and 10 of DeiT-S.</figcaption></figure>
+<figure><img src="figs/cosine.svg" style="width:82%;margin:0 auto"><figcaption>Copy of Fig. 4(b) of [1]: mean cosine
+similarity between the token features of different blocks. Values for neighbouring blocks are written next to
+the diagonal.</figcaption></figure>
+<figure><img src="figs/attention.png"><figcaption>Copy of Fig. 4(a) of [1]: [CLS] attention maps. Each map is clipped
+at its 97.5th percentile, because from block 7 on two background tokens take 9–19% of the attention.</figcaption></figure>
+<figure><img src="figs/tradeoff.svg"><figcaption>Accuracy against cost. The stars are the DeiT-S results reported in
+[1]; the hollow circle is my best ToFe variant (Section V-E).</figcaption></figure>
+<p>Other budgets give the same picture (Table IV): at every budget from 40% to 70%, ToFe is below both baselines. The
+learned split of tokens between the stages is also strange. At 60%, the model keeps all 196 tokens in stage 2. At
+70%, it keeps all of them in stage 1. Stage 3 always gets very few tokens (13–23).</p>
+<div class="tbl"><div class="tcap">ToFe at different FLOPs budgets</div><!--TABLE:budget--></div>
+
+<h3>Is it only a matter of more training?</h3>
+<p class="noindent">My models see far less data than the paper's, so I tested two longer schedules (Table V).
+Training three times longer improves ToFe by only 1.1 points. Fine-tuning the backbone for three more epochs, as the
+paper does after its frozen phase, improves it by 1.6 points, while the training loss drops from 0.85 to 0.60. Both
+results are still far below the paper and below the training-free baselines.</p>
+<div class="tbl"><div class="tcap">Effect of more training (50% budget)</div><!--TABLE:training--></div>
+
+<h3>Ablation studies</h3>
+<p class="noindent">Table VI and Fig. 6 repeat the ablations of [1]. All runs use the same budget (about 2.3 GMACs)
+and 5 epochs. Where I ran two seeds, the two results differ by only about 0.1–0.2 points, so differences of 0.5
+points or more are meaningful.</p>
+<div class="tbl"><div class="tcap">Ablations at about 2.3 GMACs (top-1 accuracy, %)</div><!--TABLE:ablation-->
+<div class="tnote">The “[1]” column gives the paper's DeiT-S values, except for reuse, where [1] reports LV-ViT-S
+(79.2% without reuse vs. 81.9% with reuse).</div></div>
+<figure><img src="figs/variants.svg"><figcaption>All ToFe variants at about 2.3 GMACs. The dashed lines are EViT and
+ToMe without training. Bars show the spread of two seeds.</figcaption></figure>
+<p><i>Token reusing (reversed):</i> Training ToFe without reuse, so that a frozen token stays frozen, gives
+<i>2.1 points higher</i> accuracy (71.73% vs. 69.66%, two seeds each). The paper reports the opposite (+2.7 points
+for reuse). I also switched reuse off at test time for already trained models (Table VII). At the token numbers of
+the paper this improves accuracy by 8–11 points for all three models.</p>
+<div class="tbl"><div class="tcap">Reuse switched on/off at test time (keep ratios 0.49, 0.25, 0.14)</div><!--TABLE:reuse_probe--></div>
+<p><i>Approximator (partly confirmed):</i> The MLP approximator is 0.6 points better than plain reuse (identity), as
+in the paper. However, a depth-wise convolution works slightly better than the MLP. With a full transformer block as
+approximator, training goes wrong: the model keeps <i>no</i> tokens in stages 1 and 2 and lets the two new blocks do
+all the work, which gives only 47.5%.</p>
+<p><i>Learned budget vs. fixed ratios (reversed):</i> All four fixed keep ratios from the paper beat the learned
+budget (70.44–72.68% vs. 69.66%). The equal split (1/3, 1/3, 1/3), which is the worst one in the paper, is the best
+one here. It gives stage 3 more tokens, which the learned budget does not do.</p>
+<p><i>Selector (partly confirmed):</i> Deeper MLP selectors change the result by less than one point, as the paper
+says. However, the selector of DynamicViT, which also looks at the average of all tokens, is 1.9 points <i>better</i>
+than the proposed MLP. The paper finds it 4.1 points worse.</p>
+
+<h3>Why does ToFe not work here?</h3>
+<p class="noindent">Table VIII and Fig. 7 look inside the trained model. Three findings explain the results above:</p>
+<ul>
+  <li><i>Frozen tokens are not approximated well.</i> Compared with the output of the original model, frozen tokens
+  have an error of 0.82 of their size with plain reuse and 0.72 with the approximator. The approximator removes only a
+  small part of the error, so reused tokens are wrong.</li>
+  <li><i>The selector “refreshes” tokens.</i> 81.5% of the tokens kept in stage 2 were frozen in stage 1 (paper:
+  10.9%). In Fig. 7, stage 2 keeps almost exactly the tokens that stage 1 froze. The model sends tokens around the
+  blocks in turns instead of keeping the important ones.</li>
+  <li><i>The kept tokens are not the important ones.</i> They carry only 48% of the [CLS] attention in stage 2
+  (paper: 91%). When used for plain pruning, the selector score is even worse than [CLS] attention (70.7% vs.
+  71.9%).</li>
+</ul>
+<div class="tbl"><div class="tcap">Inside the trained ToFe model</div><!--TABLE:inside--></div>
+<figure><img src="figs/tokens.png"><figcaption>Kept tokens in each stage (frozen tokens are faded). Orange boxes mark
+reused tokens, i.e., tokens frozen in the previous stage. The last column shows how many times each token is
+processed.</figcaption></figure>
+
+<h3>Inference modes and speed</h3>
+<p class="noindent">Table IX compares the two inference modes and the speed. In batch-adaptive mode the accuracy is
+exactly the same for every batch size. This is expected, because each image keeps its own top tokens. The paper's
+Table VIII, however, shows small changes with batch size. Instance-adaptive mode is 1.4 points better, which agrees
+with the paper. At batch 128, ToFe is 71% faster than DeiT-S. At batch size 1, the setting that instance-adaptive
+mode is meant for, ToFe is <i>slower</i> than DeiT-S (4.4 ms vs. 2.9 ms): the selectors, sorting and gathering
+cost more time than the saved computation. The paper does not report latency.</p>
+<div class="tbl"><div class="tcap">Inference modes and speed</div><!--TABLE:speed-->
+<div class="tnote">The gain in [1] is computed from its Table I (5477.3 vs. 2383.9 img/s); the table itself prints
+“+108.5%”.</div></div>
+
+<!-- ======================================================================= VI -->
+<h2>Inconsistencies in the Paper</h2>
+<ul>
+  <li><i>Two DeiT-S results:</i> Table I gives 2.0 GFLOPs, 22.3 M parameters and 77.7%. Tables IV, VI and VII,
+  which describe the same 50% setting, give 2.3 GFLOPs, 22.1 M and 78.48%. By (1), the reported keep ratios cost
+  2.20 GMACs, which matches neither.</li>
+  <li><i>Speed-up:</i> Table I lists 5477.3 img/s against 2383.9 img/s as “+108.5%”, but the ratio is +129.8%;
+  108.5% is the value of the DeiT-B row.</li>
+  <li><i>Eq. (10):</i> <i>N</i><sub>b</sub><sup>s</sup> = Σ<sub>i</sub><i>M</i><sub>i,b</sub><sup>s</sup> is called
+  the number of frozen tokens, but <i>M</i> = 1 marks kept tokens.</li>
+  <li>Eqs. (8)–(9) apply Gumbel-Softmax to probabilities instead of logits. Taken literally, the masks become
+  almost random.</li>
+  <li>Table VIII shows batch-adaptive accuracy changing with batch size, which the method as described cannot
+  do.</li>
+</ul>
+<p>I also made one mistake worth sharing. My first inference code ranked tokens by bf16 probabilities, which become
+exactly equal (ties) when they saturate. One model dropped from 57.0% to 38.3% because of this. Ranking by fp32
+logits fixed it, and I re-evaluated all models; the others changed by at most 0.05 points.</p>
+
+<!-- ======================================================================= VII -->
+<h2>Discussion and Limitations</h2>
+<p class="noindent">The measurement side of the paper is correct. The baseline numbers, the cost model and the
+observation that early [CLS] attention is unreliable could all be reproduced. The practical parts also work: the
+learned selector with batch-adaptive inference gives a real speed-up, and instance-adaptive inference uses fewer
+tokens for easy images. The central idea, however, did not work in my setting. Freezing tokens and reusing them
+through a small approximator lowered accuracy in every controlled test. The reason is that the “inattentive tokens
+change little” assumption is wrong for DeiT-S, so reused tokens are inaccurate, and the model then learns to refresh
+tokens instead of choosing important ones.</p>
+<p>The main limitation is the training budget: 59 times less training than the paper, with a frozen backbone in most
+runs. The paper's numbers may still hold at full scale, and I cannot rule this out. Two results suggest that more
+training alone would not be enough: three times longer training and backbone fine-tuning helped by only 1–1.6 points,
+and the training-free baselines were still 4.5–8.4 points better. Other limitations are the single backbone (DeiT-S),
+mostly single seeds, and baselines that I implemented myself instead of the official code.</p>
+
+<!-- ======================================================================= VIII -->
+<h2>Conclusion</h2>
+<p class="noindent">In this project I implemented ToFe from the paper text, without the authors' code, and tested
+its claims on DeiT-S. I used the full ImageNet validation set for testing and about 10% of the training set for
+training. In total I trained 20 models and compared them with EViT, ToMe and random token pruning at the same
+cost.</p>
+<p>The parts of the paper that do not need training were reproduced well. My DeiT-S and ToMe results are very close
+to the numbers in the paper (79.85% vs. 79.9% and 76.6% vs. 76.5%), and the cost model in (1) gives the same
+4.6 GMACs. Three of the four observations behind ToFe also hold: the [CLS] attention is spread out in the early
+blocks, the important tokens change from block to block, and neighbouring blocks produce similar features. The two
+inference modes behave as described, and ToFe gives a real speed-up of 71% at batch size 128.</p>
+<p>The main accuracy result was not reproduced. At 50% of the FLOPs, ToFe reached 69.7%, while the paper reports
+77.7%, and simple methods without any training did better (ToMe 78.1%, EViT 74.1%). Three ablation results came out
+in the opposite direction: ToFe was better without token reusing (+2.1 points), with fixed keep ratios instead of
+the learned budget (up to +3.0 points), and with the DynamicViT selector instead of the proposed MLP (+1.9
+points).</p>
+<p>The analysis points to one main cause. The paper assumes that unimportant tokens change little, so that a small
+MLP can update them. In DeiT-S this is not true: over three blocks these tokens change by more than their own size.
+The approximator removes only a small part of this error, so the reused tokens are wrong. The model then learns to
+refresh tokens in turns instead of keeping the important ones, and the tokens it keeps carry only about half of the
+[CLS] attention.</p>
+<p>My training budget was about 59 times smaller than in the paper, so the reported results may still hold with full
+training. However, three times longer training and backbone fine-tuning improved ToFe by only 1 to 1.6 points, which
+suggests that more training alone would not close the gap. Useful next steps are to train on the full ImageNet with a
+fine-tuned backbone, to test LV-ViT as in the paper, and to give the selector and the approximator access to the
+other tokens, for example through a global feature or a light attention layer. Fixed keep ratios with more tokens in
+the last stage turned out to be a simple and strong choice, and future work should also compare against them.</p>
+
+<h2 class="nonum" style="break-before: column">Appendix: How to Reproduce</h2>
+<p class="noindent" style="font-size:8.5pt;line-height:10pt">The source code, the result files and the trained models are available in the project repository [9]. The steps are:
+download and prepare the data (<span class="mono">download_imagenet.sh</span>,
+<span class="mono">prepare_imagenet.py</span>, <span class="mono">resize_train.py</span>,
+<span class="mono">cache_val.py</span>); run the tests (<span class="mono">test_tofe.py</span>); run the motivation
+study and baselines (<span class="mono">motivation.py</span>, <span class="mono">eval_baselines.py</span>); train ToFe
+and its variants (<span class="mono">train_tofe.py</span>, <span class="mono">run_queue.sh</span>); run the analysis
+(<span class="mono">analyze_tofe.py</span>, <span class="mono">diagnostics.py</span>); and build this paper
+(<span class="mono">paper_figures.py</span>, <span class="mono">build_paper.py</span>). Every number in the tables is
+read from the saved result files.</p>
+
+<h2 class="nonum">References</h2>
+<ol class="refs">
+  <li>H. Zhang, J. Zhang, C. Hu, and S. Guo, “ToFe: Lagged token freezing and reusing for efficient vision
+  transformer inference,” <i>IEEE Trans. Neural Netw. Learn. Syst.</i>, vol. 37, no. 10, pp. 5545–5558, Oct. 2026.</li>
+  <li>H. Touvron, M. Cord, M. Douze, F. Massa, A. Sablayrolles, and H. Jégou, “Training data-efficient image
+  transformers &amp; distillation through attention,” in <i>Proc. ICML</i>, 2021, pp. 10347–10357.</li>
+  <li>Y. Liang, C. Ge, Z. Tong, Y. Song, J. Wang, and P. Xie, “Not all patches are what you need: Expediting vision
+  transformers via token reorganizations,” arXiv:2202.07800, 2022.</li>
+  <li>D. Bolya, C.-Y. Fu, X. Dai, P. Zhang, C. Feichtenhofer, and J. Hoffman, “Token merging: Your ViT but faster,” in
+  <i>Proc. ICLR</i>, 2023.</li>
+  <li>Y. Rao, W. Zhao, B. Liu, J. Lu, J. Zhou, and C.-J. Hsieh, “DynamicViT: Efficient vision transformers with
+  dynamic token sparsification,” in <i>Proc. NeurIPS</i>, 2021, pp. 13937–13949.</li>
+  <li>E. Jang, S. Gu, and B. Poole, “Categorical reparameterization with Gumbel-Softmax,” in <i>Proc. ICLR</i>,
+  2017.</li>
+  <li>T. Darcet, M. Oquab, J. Mairal, and P. Bojanowski, “Vision transformers need registers,” in <i>Proc. ICLR</i>,
+  2024.</li>
+  <li>R. Wightman, “PyTorch image models,” GitHub repository, 2019. [Online]. Available:
+  {{URL:https://github.com/huggingface/pytorch-image-models}}</li>
+  <li>H. B. Karabay, “A reproduction study of ToFe: Code, results and trained models,” GitHub repository, 2026.
+  [Online]. Available: {{PROJECT_URL}}</li>
+</ol>
+
+
+</main>
+</body>
+</html>

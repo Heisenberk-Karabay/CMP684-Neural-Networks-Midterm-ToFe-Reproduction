@@ -1,0 +1,22 @@
+{
+ "name": "noreuse_b50",
+ "keep_counts": [
+  140,
+  31,
+  17
+ ],
+ "keep_ratios": [
+  0.714,
+  0.158,
+  0.087
+ ],
+ "gmacs": 2.315975424,
+ "dense_gmacs": 4.598882304,
+ "top1": 71.84,
+ "top5": 90.264,
+ "throughput": 5952.707598345753,
+ "extra_params_M": 0.439302,
+ "train_time_min": 19.97139780521393,
+ "top1_before_fix": 71.804,
+ "top5_before_fix": 90.262
+}

@@ -1,0 +1,20 @@
+{
+ "name": "tofe_b50_s1",
+ "keep_counts": [
+  100,
+  78,
+  14
+ ],
+ "keep_ratios": [
+  0.51,
+  0.398,
+  0.071
+ ],
+ "gmacs": 2.325666048,
+ "dense_gmacs": 4.598882304,
+ "top1": 69.686,
+ "top5": 88.95,
+ "throughput": 6046.109139811947,
+ "extra_params_M": 0.439302,
+ "train_time_min": 20.072296500205994
+}

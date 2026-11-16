@@ -1,0 +1,9 @@
+{"name": "apx_identity", "budget": 0.5, "epochs": 5, "bs": 128, "lr": 0.001, "backbone_lr": 1e-05, "finetune_epochs": 0, "wd": 0.05, "no_reuse": false, "approx": "identity", "selector": "mlp", "selector_depth": 3, "fixed_keep": null, "init": null, "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 0}
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 2.299 GMACs, extra params 0.142M
+ep0: cls 1.427 apr 2.9223 flops 0.1400 | train GMACs 2.409 | keep [116.3, 65.0, 30.2] | 259s, 504 img/s
+ep1: cls 1.159 apr 2.7283 flops 0.0044 | train GMACs 2.324 | keep [119.8, 60.5, 16.4] | 229s, 571 img/s
+ep2: cls 1.151 apr 2.7027 flops 0.0041 | train GMACs 2.324 | keep [116.0, 65.0, 15.9] | 229s, 570 img/s
+ep3: cls 1.140 apr 2.6965 flops 0.0039 | train GMACs 2.324 | keep [113.2, 68.0, 15.8] | 229s, 570 img/s
+ep4: cls 1.135 apr 2.6936 flops 0.0039 | train GMACs 2.324 | keep [112.2, 69.0, 15.7] | 229s, 570 img/s
+{"name": "apx_identity", "keep_counts": [112, 69, 16], "keep_ratios": [0.571, 0.352, 0.082], "gmacs": 2.323627008, "dense_gmacs": 4.598882304, "top1": 69.118, "top5": 88.834, "throughput": 6218.741109149685, "extra_params_M": 0.141702, "train_time_min": 19.602481762568157}

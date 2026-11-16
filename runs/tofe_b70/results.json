@@ -1,0 +1,22 @@
+{
+ "name": "tofe_b70",
+ "keep_counts": [
+  196,
+  135,
+  19
+ ],
+ "keep_ratios": [
+  1.0,
+  0.689,
+  0.097
+ ],
+ "gmacs": 3.23638656,
+ "dense_gmacs": 4.598882304,
+ "top1": 76.24,
+ "top5": 92.82,
+ "throughput": 4484.685464832475,
+ "extra_params_M": 0.439302,
+ "train_time_min": 19.945328017075855,
+ "top1_before_fix": 76.244,
+ "top5_before_fix": 92.834
+}

@@ -1,0 +1,22 @@
+{
+ "name": "tofe_b50_ft3",
+ "keep_counts": [
+  67,
+  114,
+  11
+ ],
+ "keep_ratios": [
+  0.342,
+  0.582,
+  0.056
+ ],
+ "gmacs": 2.328278784,
+ "dense_gmacs": 4.598882304,
+ "top1": 71.234,
+ "top5": 90.068,
+ "throughput": 5961.437324894148,
+ "extra_params_M": 0.439302,
+ "train_time_min": 14.960439932346343,
+ "top1_before_fix": 71.284,
+ "top5_before_fix": 90.098
+}

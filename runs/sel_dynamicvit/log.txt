@@ -1,0 +1,9 @@
+{"name": "sel_dynamicvit", "budget": 0.5, "epochs": 5, "bs": 128, "lr": 0.001, "backbone_lr": 1e-05, "finetune_epochs": 0, "wd": 0.05, "no_reuse": false, "approx": "mlp", "selector": "dynamicvit", "selector_depth": 3, "fixed_keep": null, "init": null, "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 0}
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 2.299 GMACs, extra params 1.021M
+ep0: cls 1.101 apr 2.3258 flops 0.1412 | train GMACs 2.395 | keep [113.0, 47.0, 22.7] | 272s, 481 img/s
+ep1: cls 0.903 apr 2.0055 flops 0.0024 | train GMACs 2.323 | keep [109.1, 46.4, 14.8] | 242s, 540 img/s
+ep2: cls 0.867 apr 1.9401 flops 0.0021 | train GMACs 2.322 | keep [106.4, 49.5, 14.4] | 242s, 540 img/s
+ep3: cls 0.847 apr 1.9021 flops 0.0018 | train GMACs 2.322 | keep [104.7, 51.6, 14.1] | 242s, 539 img/s
+ep4: cls 0.832 apr 1.8844 flops 0.0017 | train GMACs 2.322 | keep [104.0, 52.3, 13.9] | 242s, 539 img/s
+{"name": "sel_dynamicvit", "keep_counts": [104, 52, 14], "keep_ratios": [0.531, 0.265, 0.071], "gmacs": 2.319915264, "dense_gmacs": 4.598882304, "top1": 71.55, "top5": 90.178, "throughput": 5591.615651932419, "extra_params_M": 1.02135, "train_time_min": 20.669900409380595}

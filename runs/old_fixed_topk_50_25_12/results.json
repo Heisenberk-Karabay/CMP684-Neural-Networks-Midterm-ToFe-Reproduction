@@ -1,0 +1,22 @@
+{
+ "name": "fixed_50_25_12",
+ "keep_counts": [
+  98,
+  49,
+  24
+ ],
+ "keep_ratios": [
+  0.5,
+  0.25,
+  0.122
+ ],
+ "gmacs": 2.210141184,
+ "dense_gmacs": 4.598882304,
+ "top1": 57.0,
+ "top5": 80.164,
+ "throughput": 6179.782224485933,
+ "extra_params_M": 0.439302,
+ "train_time_min": 19.93504085143407,
+ "top1_before_fix": 38.26,
+ "top5_before_fix": 60.74
+}

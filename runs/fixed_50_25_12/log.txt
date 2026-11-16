@@ -1,0 +1,9 @@
+{"name": "fixed_50_25_12", "budget": 0.5, "epochs": 5, "bs": 128, "lr": 0.001, "backbone_lr": 1e-05, "finetune_epochs": 0, "wd": 0.05, "no_reuse": false, "approx": "mlp", "selector": "mlp", "selector_depth": 3, "fixed_keep": "0.5,0.25,0.125", "init": null, "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 0}
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 2.299 GMACs, extra params 0.439M
+ep0: cls 0.938 apr 2.2626 flops 0.0447 | train GMACs 2.346 | keep [106.3, 56.8, 31.9] | 889s, 147 img/s
+ep1: cls 0.830 apr 1.9716 flops 0.0045 | train GMACs 2.267 | keep [103.1, 53.0, 25.1] | 351s, 373 img/s
+ep2: cls 0.804 apr 1.9151 flops 0.0044 | train GMACs 2.266 | keep [103.0, 53.1, 25.0] | 234s, 558 img/s
+ep3: cls 0.791 apr 1.8862 flops 0.0042 | train GMACs 2.266 | keep [102.9, 53.1, 25.1] | 234s, 558 img/s
+ep4: cls 0.782 apr 1.8725 flops 0.0041 | train GMACs 2.266 | keep [102.8, 53.1, 25.1] | 234s, 559 img/s
+{"name": "fixed_50_25_12", "keep_counts": [98, 49, 24], "keep_ratios": [0.5, 0.25, 0.122], "gmacs": 2.210141184, "dense_gmacs": 4.598882304, "top1": 72.08, "top5": 90.646, "throughput": 6230.4816775725185, "extra_params_M": 0.439302, "train_time_min": 32.36865510543188}

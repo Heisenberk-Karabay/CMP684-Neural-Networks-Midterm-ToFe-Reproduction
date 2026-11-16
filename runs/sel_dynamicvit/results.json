@@ -1,0 +1,20 @@
+{
+ "name": "sel_dynamicvit",
+ "keep_counts": [
+  104,
+  52,
+  14
+ ],
+ "keep_ratios": [
+  0.531,
+  0.265,
+  0.071
+ ],
+ "gmacs": 2.319915264,
+ "dense_gmacs": 4.598882304,
+ "top1": 71.55,
+ "top5": 90.178,
+ "throughput": 5591.615651932419,
+ "extra_params_M": 1.02135,
+ "train_time_min": 20.669900409380595
+}

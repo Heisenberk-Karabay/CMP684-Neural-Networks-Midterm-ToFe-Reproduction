@@ -1,0 +1,9 @@
+{"name": "tofe_b40", "budget": 0.4, "epochs": 5, "bs": 128, "lr": 0.001, "backbone_lr": 1e-05, "finetune_epochs": 0, "wd": 0.05, "no_reuse": false, "approx": "mlp", "selector": "mlp", "selector_depth": 3, "fixed_keep": null, "init": null, "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 0}
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 1.840 GMACs, extra params 0.439M
+ep0: cls 1.398 apr 2.7672 flops 0.2068 | train GMACs 1.971 | keep [70.4, 34.8, 21.3] | 306s, 428 img/s
+ep1: cls 1.152 apr 2.3758 flops 0.0041 | train GMACs 1.872 | keep [66.1, 29.7, 13.2] | 234s, 559 img/s
+ep2: cls 1.083 apr 2.3132 flops 0.0039 | train GMACs 1.871 | keep [65.5, 30.2, 13.1] | 234s, 559 img/s
+ep3: cls 1.049 apr 2.2791 flops 0.0036 | train GMACs 1.870 | keep [65.3, 30.6, 12.8] | 234s, 559 img/s
+ep4: cls 1.035 apr 2.2625 flops 0.0035 | train GMACs 1.870 | keep [65.1, 30.8, 12.7] | 234s, 559 img/s
+{"name": "tofe_b40", "keep_counts": [65, 31, 13], "keep_ratios": [0.332, 0.158, 0.066], "gmacs": 1.871605248, "dense_gmacs": 4.598882304, "top1": 69.922, "top5": 89.086, "throughput": 7146.318640954957, "extra_params_M": 0.439302, "train_time_min": 20.668702324231464}

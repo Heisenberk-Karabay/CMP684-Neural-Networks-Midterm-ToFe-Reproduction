@@ -1,0 +1,22 @@
+{
+ "name": "apx_identity",
+ "keep_counts": [
+  112,
+  69,
+  16
+ ],
+ "keep_ratios": [
+  0.571,
+  0.352,
+  0.082
+ ],
+ "gmacs": 2.323627008,
+ "dense_gmacs": 4.598882304,
+ "top1": 69.074,
+ "top5": 88.842,
+ "throughput": 6095.965547136434,
+ "extra_params_M": 0.141702,
+ "train_time_min": 19.602481762568157,
+ "top1_before_fix": 69.118,
+ "top5_before_fix": 88.834
+}

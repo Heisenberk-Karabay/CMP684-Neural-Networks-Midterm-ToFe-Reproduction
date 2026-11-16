@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# data, caches and local checkpoints (too large for git)
+data/
+*.pt
+*.pth
+*.npy
+*.parquet
+
+# published checkpoints (every file is below GitHub's 100 MB limit)
+!models/*.pt
+
+# build files
+report/ieee/_*.html
+report/ieee/_*.pdf

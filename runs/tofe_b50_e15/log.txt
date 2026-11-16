@@ -1,0 +1,19 @@
+{"name": "tofe_b50_e15", "budget": 0.5, "epochs": 15, "bs": 128, "lr": 0.001, "backbone_lr": 1e-05, "finetune_epochs": 0, "wd": 0.05, "no_reuse": false, "approx": "mlp", "selector": "mlp", "selector_depth": 3, "fixed_keep": null, "init": null, "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 0}
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 2.299 GMACs, extra params 0.439M
+ep0: cls 1.037 apr 2.2935 flops 0.1283 | train GMACs 2.392 | keep [123.3, 53.7, 25.7] | 264s, 495 img/s
+ep1: cls 0.922 apr 1.9158 flops 0.0031 | train GMACs 2.323 | keep [109.0, 67.0, 15.2] | 234s, 559 img/s
+ep2: cls 0.894 apr 1.8560 flops 0.0029 | train GMACs 2.323 | keep [101.2, 75.6, 14.5] | 234s, 559 img/s
+ep3: cls 0.878 apr 1.8289 flops 0.0029 | train GMACs 2.323 | keep [96.4, 80.7, 14.3] | 234s, 559 img/s
+ep4: cls 0.871 apr 1.8112 flops 0.0028 | train GMACs 2.323 | keep [94.0, 83.3, 14.2] | 234s, 559 img/s
+ep5: cls 0.865 apr 1.7947 flops 0.0027 | train GMACs 2.323 | keep [93.4, 83.8, 14.2] | 234s, 559 img/s
+ep6: cls 0.854 apr 1.7827 flops 0.0027 | train GMACs 2.323 | keep [92.9, 84.3, 14.2] | 234s, 559 img/s
+ep7: cls 0.847 apr 1.7684 flops 0.0026 | train GMACs 2.323 | keep [92.1, 85.3, 14.1] | 234s, 559 img/s
+ep8: cls 0.840 apr 1.7590 flops 0.0026 | train GMACs 2.323 | keep [90.4, 87.0, 14.1] | 233s, 560 img/s
+ep9: cls 0.832 apr 1.7489 flops 0.0025 | train GMACs 2.323 | keep [90.5, 87.0, 14.0] | 234s, 559 img/s
+ep10: cls 0.826 apr 1.7419 flops 0.0025 | train GMACs 2.323 | keep [89.8, 87.7, 14.0] | 234s, 559 img/s
+ep11: cls 0.819 apr 1.7346 flops 0.0024 | train GMACs 2.323 | keep [90.0, 87.4, 14.0] | 233s, 560 img/s
+ep12: cls 0.818 apr 1.7291 flops 0.0024 | train GMACs 2.323 | keep [89.8, 87.6, 14.0] | 234s, 559 img/s
+ep13: cls 0.814 apr 1.7261 flops 0.0024 | train GMACs 2.323 | keep [89.7, 87.7, 14.0] | 234s, 559 img/s
+ep14: cls 0.812 apr 1.7267 flops 0.0024 | train GMACs 2.323 | keep [89.9, 87.4, 14.1] | 234s, 560 img/s
+{"name": "tofe_b50_e15", "keep_counts": [90, 87, 14], "keep_ratios": [0.459, 0.444, 0.071], "gmacs": 2.31954432, "dense_gmacs": 4.598882304, "top1": 70.76, "top5": 89.708, "throughput": 6191.949266261503, "extra_params_M": 0.439302, "train_time_min": 58.91242299079895}

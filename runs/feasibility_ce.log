@@ -1,0 +1,27 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+== T1: FLOPs (GMACs) ==
+dense DeiT-S  Eq.(4): 4.599  fvcore: 4.608  (paper: 4.6)
+ToFe keep=[96, 49, 27]: 2.197  (paper Table VII: 2.3)
+EViT  keep=[96, 49, 27]: 2.297
+params: backbone 22.05M, ToFe modules +0.292M
+
+== T2: correctness (keep all tokens == dense) ==
+max |dense - infer(all)| = 8.94e-07
+max |dense - train(all)| = 1.79e-06, kept=[196, 196, 196]
+
+== T3: dense DeiT-S accuracy (1000-way top-1/top-5) ==
+imagenette n=3925: top1 87.16  top5 98.42  (18.5s)
+imagewoof  n=3929: top1 86.46  top5 97.79  (18.6s)
+
+== T4: throughput, bs=128, bf16 (img/s) ==
+dense 3533 | ToFe 6399 (+81.1%) | EViT 6073 (+71.9%)   [paper DeiT-S: 2383.9 -> 5477.3]
+
+== T5: mini training, frozen backbone, target = 50% FLOPs ==
+ep0: loss 4.396 (cls 0.477 apr 1.8525 flops 0.0429) keep [129.8, 68.3, 25.8] -> 2.49 GMACs | 49s, 374 img/s, peak mem 3.2 GB
+ep1: loss 4.085 (cls 0.425 apr 1.7161 flops 0.0457) keep [92.5, 119.5, 14.0] -> 2.50 GMACs | 32s, 584 img/s, peak mem 3.2 GB
+ep2: loss 4.230 (cls 0.527 apr 1.7339 flops 0.0470) keep [88.6, 124.6, 13.2] -> 2.51 GMACs | 32s, 582 img/s, peak mem 3.2 GB
+
+learned N^s = [89, 125, 13] (ratios [0.45, 0.64, 0.07]) -> 2.51 GMACs; paper N^s = [96, 49, 27]: ToFe 2.20 vs EViT 2.30 GMACs
+imagenette ToFe(learned N^s) 95.36/99.03 | ToFe(paper N^s) 93.20/98.80 | EViT(fuse) 79.62/96.15 | top-k CLS-attn prune 79.57/96.15
+imagewoof  ToFe(learned N^s) 90.96/97.89 | ToFe(paper N^s) 82.51/97.89 | EViT(fuse) 81.29/96.36 | top-k CLS-attn prune 81.17/96.26
+instance-adaptive (imagewoof, 500 imgs): top1 91.8 | GMACs mean 2.48 (min 2.35, max 2.61) | tokens/stage mean [78.88800048828125, 132.29200744628906, 10.579999923706055] std [16.018884658813477, 16.13627815246582, 4.243537902832031]

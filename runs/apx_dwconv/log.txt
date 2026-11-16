@@ -1,0 +1,9 @@
+{"name": "apx_dwconv", "budget": 0.5, "epochs": 5, "bs": 128, "lr": 0.001, "backbone_lr": 1e-05, "finetune_epochs": 0, "wd": 0.05, "no_reuse": false, "approx": "dwconv", "selector": "mlp", "selector_depth": 3, "fixed_keep": null, "init": null, "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 0}
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 2.299 GMACs, extra params 0.151M
+ep0: cls 1.240 apr 2.6149 flops 0.1388 | train GMACs 2.402 | keep [124.5, 53.9, 31.2] | 264s, 496 img/s
+ep1: cls 1.052 apr 2.2884 flops 0.0032 | train GMACs 2.321 | keep [128.9, 50.4, 16.1] | 233s, 561 img/s
+ep2: cls 1.027 apr 2.2616 flops 0.0030 | train GMACs 2.322 | keep [122.8, 57.6, 15.5] | 233s, 560 img/s
+ep3: cls 1.013 apr 2.2356 flops 0.0029 | train GMACs 2.322 | keep [120.8, 59.8, 15.3] | 233s, 560 img/s
+ep4: cls 1.004 apr 2.2295 flops 0.0029 | train GMACs 2.322 | keep [120.0, 60.6, 15.4] | 233s, 560 img/s
+{"name": "apx_dwconv", "keep_counts": [120, 61, 15], "keep_ratios": [0.612, 0.311, 0.077], "gmacs": 2.321477376, "dense_gmacs": 4.598882304, "top1": 70.32, "top5": 89.544, "throughput": 5920.772660833182, "extra_params_M": 0.150918, "train_time_min": 19.937702095508577}

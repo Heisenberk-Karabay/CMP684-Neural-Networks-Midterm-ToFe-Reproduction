@@ -1,0 +1,9 @@
+{"name": "noreuse_b50_s1", "budget": 0.5, "epochs": 5, "bs": 128, "lr": 0.001, "backbone_lr": 1e-05, "finetune_epochs": 0, "wd": 0.05, "no_reuse": true, "approx": "mlp", "selector": "mlp", "selector_depth": 3, "fixed_keep": null, "init": null, "loss": "ce", "lam_cls": 1.0, "lam_apr": 2.0, "lam_flops": 50.0, "train_split": "train256", "train_frac": 1.0, "val_limit": null, "workers": 14, "seed": 1}
+train 130740 images, val 50000 images
+dense 4.599 GMACs, target 2.299 GMACs, extra params 0.439M
+ep0: cls 1.103 apr 2.1251 flops 0.0777 | train GMACs 2.364 | keep [131.8, 39.7, 25.5] | 264s, 495 img/s
+ep1: cls 1.085 apr 1.7874 flops 0.0043 | train GMACs 2.315 | keep [140.3, 30.6, 16.9] | 234s, 558 img/s
+ep2: cls 1.070 apr 1.7531 flops 0.0041 | train GMACs 2.315 | keep [140.2, 30.7, 16.8] | 234s, 558 img/s
+ep3: cls 1.062 apr 1.7361 flops 0.0040 | train GMACs 2.315 | keep [140.4, 30.6, 16.7] | 234s, 558 img/s
+ep4: cls 1.054 apr 1.7318 flops 0.0040 | train GMACs 2.315 | keep [140.1, 30.9, 16.8] | 234s, 558 img/s
+{"name": "noreuse_b50_s1", "keep_counts": [140, 31, 17], "keep_ratios": [0.714, 0.158, 0.087], "gmacs": 2.315975424, "dense_gmacs": 4.598882304, "top1": 71.628, "top5": 90.252, "throughput": 5967.528439946428, "extra_params_M": 0.439302, "train_time_min": 20.00965560277303}

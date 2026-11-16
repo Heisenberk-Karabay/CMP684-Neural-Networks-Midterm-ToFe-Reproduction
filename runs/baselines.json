@@ -1,0 +1,142 @@
+[
+ {
+  "method": "dense",
+  "setting": "-",
+  "gmacs": 4.598882304,
+  "top1": 79.85,
+  "top5": 95.058,
+  "throughput": 3517.498759395114
+ },
+ {
+  "method": "EViT",
+  "setting": [
+   176,
+   159,
+   143
+  ],
+  "gmacs": 3.988126464,
+  "top1": 79.812,
+  "top5": 94.982,
+  "throughput": 3924.523322188058
+ },
+ {
+  "method": "EViT",
+  "setting": [
+   157,
+   125,
+   100
+  ],
+  "gmacs": 3.450253824,
+  "top1": 79.324,
+  "top5": 94.79,
+  "throughput": 4576.285317666207
+ },
+ {
+  "method": "EViT",
+  "setting": [
+   137,
+   96,
+   67
+  ],
+  "gmacs": 2.996994816,
+  "top1": 78.41,
+  "top5": 94.338,
+  "throughput": 5136.603145082149
+ },
+ {
+  "method": "EViT",
+  "setting": [
+   118,
+   71,
+   42
+  ],
+  "gmacs": 2.619932928,
+  "top1": 76.884,
+  "top5": 93.398,
+  "throughput": 5887.955699021574
+ },
+ {
+  "method": "EViT",
+  "setting": [
+   98,
+   49,
+   24
+  ],
+  "gmacs": 2.293686528,
+  "top1": 74.03,
+  "top5": 91.436,
+  "throughput": 6566.81078422232
+ },
+ {
+  "method": "EViT",
+  "setting": [
+   96,
+   49,
+   27
+  ],
+  "gmacs": 2.296566528,
+  "top1": 74.13,
+  "top5": 91.678,
+  "throughput": 6566.877490801971
+ },
+ {
+  "method": "ToMe",
+  "setting": 4,
+  "gmacs": 4.001452032,
+  "top1": 79.762,
+  "top5": 94.98,
+  "throughput": 3299.564694615584
+ },
+ {
+  "method": "ToMe",
+  "setting": 8,
+  "gmacs": 3.416457216,
+  "top1": 79.458,
+  "top5": 94.844,
+  "throughput": 3895.4893763291802
+ },
+ {
+  "method": "ToMe",
+  "setting": 12,
+  "gmacs": 2.843897856,
+  "top1": 79.016,
+  "top5": 94.618,
+  "throughput": 4597.289969395247
+ },
+ {
+  "method": "ToMe",
+  "setting": 14,
+  "gmacs": 2.562281472,
+  "top1": 78.738,
+  "top5": 94.394,
+  "throughput": 5065.538972155188
+ },
+ {
+  "method": "ToMe",
+  "setting": 16,
+  "gmacs": 2.29085184,
+  "top1": 78.056,
+  "top5": 93.99,
+  "throughput": 5505.883122142972
+ },
+ {
+  "method": "ToMe",
+  "setting": 18,
+  "gmacs": 2.059203072,
+  "top1": 76.626,
+  "top5": 93.068,
+  "throughput": 6041.432521828272
+ },
+ {
+  "method": "Random",
+  "setting": [
+   96,
+   49,
+   27
+  ],
+  "gmacs": 2.151578112,
+  "top1": 68.204,
+  "top5": 88.302,
+  "throughput": 7251.488651294327
+ }
+]

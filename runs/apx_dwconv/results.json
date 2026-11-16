@@ -1,0 +1,20 @@
+{
+ "name": "apx_dwconv",
+ "keep_counts": [
+  120,
+  61,
+  15
+ ],
+ "keep_ratios": [
+  0.612,
+  0.311,
+  0.077
+ ],
+ "gmacs": 2.321477376,
+ "dense_gmacs": 4.598882304,
+ "top1": 70.32,
+ "top5": 89.544,
+ "throughput": 5920.772660833182,
+ "extra_params_M": 0.150918,
+ "train_time_min": 19.937702095508577
+}
